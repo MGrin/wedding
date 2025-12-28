@@ -8,7 +8,6 @@ import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { useMemo, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import type { PageId, Section } from "./types";
-import "./index.css";
 import { TRANSLATIONS, type Language } from "./i18n";
 import { Calendar, Send, Ghost, Dna, Zap, Heart } from "lucide-react";
 import { GuestDossier } from "./components/cyberpunk/GuestDossier";

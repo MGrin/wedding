@@ -23,11 +23,11 @@ const SoundContext = createContext<SoundContextType | undefined>(undefined);
 const SOUNDS = {
   CLICK: "https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3",
   TRANSITION:
-    "https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3",
-  GLITCH: "https://assets.mixkit.co/active_storage/sfx/2558/2558-preview.mp3",
+    "https://assets.mixkit.co/active_storage/sfx/2566/2566-preview.mp3",
+  GLITCH: "https://assets.mixkit.co/active_storage/sfx/2557/2557-preview.mp3",
   MENU: "https://assets.mixkit.co/active_storage/sfx/2567/2567-preview.mp3",
   LANGUAGE: "https://assets.mixkit.co/active_storage/sfx/2569/2569-preview.mp3",
-  BACKGROUND: "https://cdn.pixabay.com/audio/2022/02/22/audio_d0c6af1110.mp3",
+  BACKGROUND: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
 };
 
 export function SoundProvider({ children }: { children: ReactNode }) {

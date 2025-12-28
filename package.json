@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "bun --hot src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
-    "build": "bun run build.ts",
-    "preview": "bun run build.ts && bun run preview.ts"
+    "build": "bun x @tailwindcss/cli -i src/index.css -o src/compiled.css && bun run build.ts",
+    "preview": "bun run build && bun run preview.ts"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
