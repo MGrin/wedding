@@ -34,7 +34,7 @@ export function App() {
 
   const isGlitching = useGlitchState();
   const { isGlitchMode } = useGlitch();
-  const { playTransition, playLanguage, playClick } = useAudio();
+  const { playLanguage, playClick } = useAudio();
   const [heartGlitching, setHeartGlitching] = useState(false);
 
   useEffect(() => {
@@ -114,22 +114,12 @@ export function App() {
 
   const currentPage = PATH_TO_PAGE[location.pathname] || "landing";
   const [direction, setDirection] = useState(1);
-  const prevPageRef = useRef(currentPage);
+  const [prevPage, setPrevPage] = useState(currentPage);
 
-  useEffect(() => {
-    if (prevPageRef.current !== currentPage) {
-      const newDirection = currentPage === "landing" ? 1 : -1;
-      if (direction !== newDirection) {
-        setDirection(newDirection);
-      }
-      prevPageRef.current = currentPage;
-    }
-  }, [currentPage, direction]);
-
-  // Play sound on page change
-  useEffect(() => {
-    playTransition();
-  }, [location.pathname, playTransition]);
+  if (prevPage !== currentPage) {
+    setDirection(currentPage === "landing" ? 1 : -1);
+    setPrevPage(currentPage);
+  }
 
   // Reset scroll progress when page changes
   useEffect(() => {
@@ -268,21 +258,21 @@ export function App() {
             {/* Location & Date Section */}
             <div className="flex-1 md:flex-none w-full flex flex-col items-center justify-start px-4 space-y-4 md:space-y-6 md:mt-12">
               <div className="h-px w-full bg-gradient-to-r from-transparent via-[#ff00ff] to-transparent opacity-50" />
-              <p className="text-[#00ffff] text-base md:text-3xl lg:text-4xl font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-center">
+              <div className="text-[#00ffff] text-base md:text-3xl lg:text-4xl font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-center">
                 <GlitchText
                   text={t.weddingProtocol}
                   forceGlitch={isHeartGlitching}
                 />
-              </p>
+              </div>
             </div>
 
             <div className="absolute bottom-4 md:bottom-12 left-1/2 -translate-x-1/2 text-center space-y-4">
-              <p className="text-[10px] tracking-[0.3em] text-[#ff00ff] animate-bounce font-bold">
+              <div className="text-[10px] tracking-[0.3em] text-[#ff00ff] animate-bounce font-bold">
                 <GlitchText
                   text={t.scrollToInitialize}
                   forceGlitch={isHeartGlitching}
                 />
-              </p>
+              </div>
               <div className="w-px h-12 bg-gradient-to-b from-[#ff00ff] to-transparent mx-auto" />
             </div>
           </div>
@@ -305,9 +295,9 @@ export function App() {
                   <GlitchText text={t.locationAndDates} />
                 </h2>
                 <div className="text-right">
-                  <p className="text-[#00ffff] font-bold text-base md:text-xl">
+                  <div className="text-[#00ffff] font-bold text-base md:text-xl">
                     <GlitchText text="16.05.2026" />
-                  </p>
+                  </div>
                 </div>
               </div>
 
@@ -322,9 +312,9 @@ export function App() {
                   </div>
                   <div className="pl-4 border-l border-[#ff00ff]/30 flex flex-col flex-grow">
                     <div className="space-y-1 md:space-y-2 mb-4 md:mb-6">
-                      <p className="text-gray-300 font-medium text-sm md:text-base">
+                      <div className="text-gray-300 font-medium text-sm md:text-base">
                         <GlitchText text={t.officialPartDesc} />
-                      </p>
+                      </div>
                     </div>
                     <div className="mt-auto">
                       <a
@@ -350,9 +340,9 @@ export function App() {
                   </div>
                   <div className="pl-4 border-l border-[#ff00ff]/30 flex flex-col flex-grow">
                     <div className="space-y-1 md:space-y-2 mb-4 md:mb-6">
-                      <p className="text-gray-300 font-medium text-sm md:text-base">
+                      <div className="text-gray-300 font-medium text-sm md:text-base">
                         <GlitchText text={t.banquetDesc} />
-                      </p>
+                      </div>
                     </div>
                     <div className="mt-auto">
                       <a
@@ -378,12 +368,12 @@ export function App() {
                   </div>
                   <div className="pl-4 border-l border-[#ff00ff]/30 flex flex-col flex-grow">
                     <div className="space-y-1 md:space-y-2 mb-4 md:mb-6">
-                      <p className="text-gray-300 font-medium text-sm md:text-base">
+                      <div className="text-gray-300 font-medium text-sm md:text-base">
                         <GlitchText text={t.hotelDesc} />
-                      </p>
-                      <p className="text-[9px] md:text-[10px] text-gray-500 leading-relaxed italic">
+                      </div>
+                      <div className="text-[9px] md:text-[10px] text-gray-500 leading-relaxed italic">
                         <GlitchText text={t.hotelNote} />
-                      </p>
+                      </div>
                     </div>
                     <div className="mt-auto">
                       <a
@@ -420,9 +410,9 @@ export function App() {
                   <GlitchText text={t.thePlan.toUpperCase()} />
                 </h2>
                 <div className="text-right">
-                  <p className="text-[#ff00ff] font-bold text-base md:text-xl">
+                  <div className="text-[#ff00ff] font-bold text-base md:text-xl">
                     <GlitchText text="14.05 — 21.05" />
-                  </p>
+                  </div>
                 </div>
               </div>
 
@@ -439,9 +429,9 @@ export function App() {
                     </h3>
                   </div>
                   <div className="pl-4 border-l border-[#00ffff]/30 flex flex-col flex-grow">
-                    <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
+                    <div className="text-gray-300 text-xs md:text-sm leading-relaxed">
                       <GlitchText text={t.beforeTheWeddingDesc} />
-                    </p>
+                    </div>
                   </div>
                 </div>
 
@@ -457,9 +447,9 @@ export function App() {
                     </h3>
                   </div>
                   <div className="pl-4 border-l border-[#00ffff]/30 flex flex-col flex-grow">
-                    <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
+                    <div className="text-gray-300 text-xs md:text-sm leading-relaxed">
                       <GlitchText text={t.theWeddingDesc} />
-                    </p>
+                    </div>
                   </div>
                 </div>
 
@@ -475,9 +465,9 @@ export function App() {
                     </h3>
                   </div>
                   <div className="pl-4 border-l border-[#00ffff]/30 flex flex-col flex-grow">
-                    <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
+                    <div className="text-gray-300 text-xs md:text-sm leading-relaxed">
                       <GlitchText text={t.afterTheWeddingDesc} />
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -494,30 +484,30 @@ export function App() {
               <h2 className="text-3xl md:text-5xl font-black text-[#ff00ff] tracking-tighter">
                 <GlitchText text={t.guestStats.toUpperCase()} />
               </h2>
-              <p className="text-[#00ffff] font-mono text-xs md:text-sm mt-2 tracking-[0.2em]">
+              <div className="text-[#00ffff] font-mono text-xs md:text-sm mt-2 tracking-[0.2em]">
                 <GlitchText text={t.authorizedAccess.toUpperCase()} />
-              </p>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
               <div className="bg-[#00ffff]/5 border border-[#00ffff]/20 p-4 space-y-1">
-                <p className="text-[10px] text-[#00ffff]/60 font-mono uppercase tracking-widest">
+                <div className="text-[10px] text-[#00ffff]/60 font-mono uppercase tracking-widest">
                   <GlitchText text={t.guests} />
-                </p>
-                <p className="text-3xl md:text-4xl font-black text-white">
+                </div>
+                <div className="text-3xl md:text-4xl font-black text-white">
                   <GlitchText text={totalGuests.toString()} />
-                </p>
-                <p className="text-[10px] text-gray-500 font-mono">
+                </div>
+                <div className="text-[10px] text-gray-500 font-mono">
                   <GlitchText
                     text={`${totalAdults} ${t.adults} / ${totalChildren} ${t.children}`}
                   />
-                </p>
+                </div>
               </div>
 
               <div className="bg-[#ff00ff]/5 border border-[#ff00ff]/20 p-4 space-y-2">
-                <p className="text-[10px] text-[#ff00ff]/60 font-mono uppercase tracking-widest">
+                <div className="text-[10px] text-[#ff00ff]/60 font-mono uppercase tracking-widest">
                   <GlitchText text={t.countries} />
-                </p>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {countries.map((c) => (
                     <span
@@ -531,9 +521,9 @@ export function App() {
               </div>
 
               <div className="bg-[#00ffff]/5 border border-[#00ffff]/20 p-4 space-y-2">
-                <p className="text-[10px] text-[#00ffff]/60 font-mono uppercase tracking-widest">
+                <div className="text-[10px] text-[#00ffff]/60 font-mono uppercase tracking-widest">
                   <GlitchText text={t.languages} />
-                </p>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {languages.map((l) => (
                     <span
@@ -622,11 +612,11 @@ export function App() {
               <h2 className="text-4xl font-bold text-[#ff00ff]">
                 <GlitchText text={t.guestDatabase} />
               </h2>
-              <p className="text-[#00ffff] text-xs tracking-[0.3em] mt-2">
+              <div className="text-[#00ffff] text-xs tracking-[0.3em] mt-2">
                 <GlitchText
                   text={`${t.authorizedAccess} - ${totalGuests} ${t.guests} (${totalAdults} ${t.adults} / ${totalChildren} ${t.children})`}
                 />
-              </p>
+              </div>
             </div>
             <div className="p-6 md:p-12 pt-8 md:pt-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -719,8 +709,10 @@ export function App() {
 
   const pageVariants = {
     initial: (d: number) => ({
-      x: `${d * 30}%`,
-      rotateY: d * 15,
+      x: isFirstMount.current ? 0 : `${d * 30}%`,
+      rotateY: isFirstMount.current ? 0 : d * 15,
+      scale: isFirstMount.current ? 0.2 : 1,
+      z: isFirstMount.current ? -2000 : 0,
       opacity: 0,
     }),
     animate: {
@@ -729,27 +721,21 @@ export function App() {
       scale: 1,
       z: 0,
       opacity: 1,
+      transition: {
+        duration: isFirstMount.current ? 1.5 : 0.6,
+        ease: [0.2, 0, 0.2, 1] as any,
+      },
     },
     exit: (d: number) => ({
       x: `${-d * 30}%`,
       rotateY: -d * 15,
       opacity: 0,
+      pointerEvents: "none" as const,
+      transition: {
+        duration: 0.6,
+        ease: [0.2, 0, 0.2, 1] as any,
+      },
     }),
-  };
-
-  const firstMountVariants = {
-    initial: {
-      scale: 0.2,
-      z: -2000,
-      opacity: 0,
-    },
-    animate: {
-      x: 0,
-      rotateY: 0,
-      scale: 1,
-      z: 0,
-      opacity: 1,
-    },
   };
 
   return (
@@ -786,22 +772,16 @@ export function App() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence mode="popLayout" custom={direction}>
+      <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={currentPage}
           custom={direction}
-          variants={isFirstMount.current ? firstMountVariants : pageVariants}
+          variants={pageVariants}
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={{
-            duration: isFirstMount.current ? 1.5 : 0.6,
-            ease: [0.2, 0, 0.2, 1],
-          }}
           style={{
-            transformOrigin: isFirstMount.current
-              ? "center center"
-              : "center center 2500px",
+            transformOrigin: "center center 2500px",
             transformStyle: "preserve-3d",
           }}
           className="absolute inset-0 w-full h-full z-20"

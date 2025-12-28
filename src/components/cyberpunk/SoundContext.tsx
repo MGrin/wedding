@@ -9,7 +9,6 @@ import useSound from "use-sound";
 
 interface SoundContextType {
   playClick: () => void;
-  playTransition: () => void;
   playGlitch: () => void;
   playMenu: () => void;
   playLanguage: () => void;
@@ -22,8 +21,6 @@ const SoundContext = createContext<SoundContextType | undefined>(undefined);
 // Cyberpunk-style sound URLs
 const SOUNDS = {
   CLICK: "https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3",
-  TRANSITION:
-    "https://assets.mixkit.co/active_storage/sfx/2566/2566-preview.mp3",
   GLITCH: "https://assets.mixkit.co/active_storage/sfx/2557/2557-preview.mp3",
   MENU: "https://assets.mixkit.co/active_storage/sfx/2567/2567-preview.mp3",
   LANGUAGE: "https://assets.mixkit.co/active_storage/sfx/2569/2569-preview.mp3",
@@ -35,11 +32,6 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const [hasInteracted, setHasInteracted] = useState(false);
 
   const [playClick] = useSound(SOUNDS.CLICK, {
-    volume: isMuted ? 0 : 0.6,
-    interrupt: true,
-    preload: true,
-  });
-  const [playTransition] = useSound(SOUNDS.TRANSITION, {
     volume: isMuted ? 0 : 0.6,
     interrupt: true,
     preload: true,
@@ -124,7 +116,6 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     <SoundContext.Provider
       value={{
         playClick: () => safePlay(playClick),
-        playTransition: () => safePlay(playTransition),
         playGlitch: () => safePlay(playGlitch),
         playMenu: () => safePlay(playMenu),
         playLanguage: () => safePlay(playLanguage),

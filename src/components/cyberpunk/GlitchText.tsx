@@ -36,7 +36,7 @@ export function GlitchText({
   };
 
   return (
-    <div className={`relative inline-block ${className}`}>
+    <span className={`relative inline-block ${className}`}>
       <motion.span
         className="relative z-10"
         animate={isGlitching ? "glitch" : "idle"}
@@ -71,6 +71,6 @@ export function GlitchText({
           </motion.span>
         </>
       )}
-    </div>
+    </span>
   );
 }

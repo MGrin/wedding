@@ -21,7 +21,6 @@ export function SectionPage({ sections, scrollProgress }: SectionPageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { playTransition } = useAudio();
   const isScrollingRef = useRef(false);
   const mountedPathnameRef = useRef(location.pathname);
   const isFirstMountRef = useRef(true);
@@ -51,10 +50,6 @@ export function SectionPage({ sections, scrollProgress }: SectionPageProps) {
     if (targetId && containerRef.current) {
       const index = sections.findIndex((s) => s.id === targetId);
       if (index !== -1) {
-        // Play sound if the section index actually changed
-        if (index !== lastSectionIndexRef.current) {
-          playTransition();
-        }
         lastSectionIndexRef.current = index;
 
         if (isScrollingRef.current) {
@@ -81,7 +76,7 @@ export function SectionPage({ sections, scrollProgress }: SectionPageProps) {
       containerRef.current.scrollTop = 0;
     }
     isFirstMountRef.current = false;
-  }, [location.hash, location.pathname, sections, navigate, playTransition]);
+  }, [location.hash, location.pathname, sections, navigate]);
 
   // Sync internal scroll progress and update hash
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -98,7 +93,6 @@ export function SectionPage({ sections, scrollProgress }: SectionPageProps) {
       if (currentSection && index !== lastSectionIndexRef.current) {
         const currentHash = `#${currentSection.id}`;
 
-        playTransition();
         lastSectionIndexRef.current = index;
 
         if (window.location.hash !== currentHash) {
@@ -114,7 +108,6 @@ export function SectionPage({ sections, scrollProgress }: SectionPageProps) {
       }
     }
   });
-
   return (
     <div
       ref={containerRef}

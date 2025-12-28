@@ -96,7 +96,6 @@ export function StickyMenu({ language, onLanguageChange }: StickyMenuProps) {
 
   const handleNavigate = (e: React.MouseEvent, path: string, hash?: string) => {
     e.stopPropagation();
-    // Removed playClick() here to avoid overlap with playTransition() which triggers on path/hash change
     if (location.pathname === path && hash) {
       const element = document.getElementById(hash);
       if (element) {
