@@ -118,30 +118,31 @@ export function SectionPage({ sections, scrollProgress }: SectionPageProps) {
           : "overflow-hidden"
       )}
     >
-      {/* Sticky container for the content */}
-      <div className="sticky top-0 h-[100dvh] w-full z-10 overflow-hidden pointer-events-none [transform-style:preserve-3d]">
-        {sections.map((section, index) => (
-          <SectionRenderer
-            key={section.id}
-            section={section}
-            index={index}
-            total={sections.length}
-            scrollYProgress={scrollYProgress}
-          />
-        ))}
-      </div>
+      <div className="grid grid-cols-1 grid-rows-1 w-full [transform-style:preserve-3d]">
+        {/* Sticky container for the content */}
+        <div className="sticky top-0 h-[100dvh] w-full z-10 overflow-hidden pointer-events-none [transform-style:preserve-3d] row-start-1 col-start-1">
+          {sections.map((section, index) => (
+            <SectionRenderer
+              key={section.id}
+              section={section}
+              index={index}
+              total={sections.length}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
+        </div>
 
-      {/* Snap Targets: The first one overlaps the sticky content */}
-      {sections.length > 1 &&
-        sections.map((_, index) => (
-          <div
-            key={index}
-            className={cn(
-              "snap-start snap-always h-[100dvh] w-full flex-shrink-0",
-              index === 0 && "-mt-[100dvh]"
-            )}
-          />
-        ))}
+        {/* Snap Targets */}
+        <div className="row-start-1 col-start-1 flex flex-col pointer-events-none">
+          {sections.length > 1 &&
+            sections.map((_, index) => (
+              <div
+                key={index}
+                className="snap-start snap-always h-[100dvh] w-full flex-shrink-0"
+              />
+            ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -157,24 +158,16 @@ function SectionRenderer({
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  // If there's only one section, it's always visible
-  if (total === 1) {
-    return (
-      <motion.section
-        style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
-        className="absolute inset-0 z-10 flex flex-col items-center justify-start md:justify-center p-4 pt-20 pb-10 md:p-8 overflow-hidden pointer-events-auto"
-      >
-        <motion.div className="w-full flex flex-col items-center justify-center [transform-style:preserve-3d]">
-          {section.content}
-        </motion.div>
-      </motion.section>
-    );
-  }
-
   // For multiple sections, we use the scroll progress
   // We want a "window" of visibility around the snap point
   const step = total > 1 ? 1 / (total - 1) : 1;
   const visibleAt = index * step;
+
+  // Add a larger plateau around the focus point to handle sub-pixel scroll issues on mobile
+  // This is especially important for sections with internal scrolling
+  const plateau = total > 1 ? step * 0.15 : 1;
+  const focusStart = index === 0 ? -0.1 : visibleAt - plateau;
+  const focusEnd = index === total - 1 ? 1.1 : visibleAt + plateau;
 
   // Sharper fade in/out to prevent overlapping
   const fadeInStart = visibleAt - step * 0.4;
@@ -182,26 +175,26 @@ function SectionRenderer({
 
   const opacity = useTransform(
     scrollYProgress,
-    [fadeInStart, visibleAt, fadeOutEnd],
-    [0, 1, 0]
+    [fadeInStart, focusStart, focusEnd, fadeOutEnd],
+    [0, 1, 1, 0]
   );
 
   const scale = useTransform(
     scrollYProgress,
-    [fadeInStart, visibleAt, fadeOutEnd],
-    [0.5, 1, 2]
+    [fadeInStart, focusStart, focusEnd, fadeOutEnd],
+    [0.5, 1, 1, 2]
   );
 
   const z = useTransform(
     scrollYProgress,
-    [fadeInStart, visibleAt, fadeOutEnd],
-    [-2000, 0, 800]
+    [fadeInStart, focusStart, focusEnd, fadeOutEnd],
+    [-2000, 0, 0, 500]
   );
 
   const blur = useTransform(
     scrollYProgress,
-    [visibleAt, fadeOutEnd],
-    ["blur(0px)", "blur(20px)"]
+    [fadeInStart, focusStart, focusEnd, fadeOutEnd],
+    ["blur(10px)", "blur(0px)", "blur(0px)", "blur(15px)"]
   );
 
   const pointerEvents = useTransform(opacity, (v) =>
@@ -217,7 +210,7 @@ function SectionRenderer({
         pointerEvents,
         transformStyle: "preserve-3d",
       }}
-      className="absolute inset-0 z-10 flex flex-col items-center justify-start md:justify-center p-4 pt-20 pb-10 md:p-8 overflow-y-auto"
+      className="absolute inset-0 z-10 flex flex-col items-center justify-start md:justify-center p-4 pt-20 pb-10 md:p-8 overflow-hidden"
     >
       <motion.div
         style={{
