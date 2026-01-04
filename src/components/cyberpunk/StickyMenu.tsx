@@ -24,6 +24,7 @@ export function StickyMenu({ language, onLanguageChange }: StickyMenuProps) {
   const landingSections = useMemo(
     () => [
       { id: "invitation", label: t.invitation },
+      { id: "photo", label: t.theCouple },
       { id: "location-and-dates", label: t.locationAndDates },
       { id: "schedule", label: t.thePlan },
       { id: "guests", label: t.guestList },

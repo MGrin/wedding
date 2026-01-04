@@ -42,7 +42,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     preload: true,
   });
   const [playMenu] = useSound(SOUNDS.MENU, {
-    volume: isMuted ? 0 : 0.7,
+    volume: isMuted ? 0 : 0.5,
     interrupt: true,
     preload: true,
   });

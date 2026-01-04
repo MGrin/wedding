@@ -16,6 +16,8 @@ import {
   useGlitch,
 } from "./components/cyberpunk/GlitchContext";
 import { useAudio } from "./components/cyberpunk/SoundContext";
+import photoOrig from "./photos/photo together_orig.JPG";
+import photoGlitch from "./photos/photo together_glitch.JPG";
 
 const PATH_TO_PAGE: Record<string, PageId> = {
   "/": "landing",
@@ -276,6 +278,49 @@ export function App() {
               <div className="w-px h-12 bg-gradient-to-b from-[#ff00ff] to-transparent mx-auto" />
             </div>
           </div>
+        ),
+      },
+      {
+        id: "photo",
+        title: t.theCouple,
+        content: (
+          <div className="mt-4 md:mt-0 space-y-3 md:space-y-8 bg-black/80 p-4 md:p-12 border-2 border-[#ff00ff] backdrop-blur-2xl max-w-5xl w-full relative overflow-hidden max-h-[85vh] md:max-h-[calc(100vh-180px)] flex flex-col">
+            {/* <div className="absolute top-0 right-0 p-4 opacity-10 md:opacity-20">
+              <div className="text-[30px] md:text-[60px] font-black text-[#ff00ff] leading-none select-none">
+                <GlitchText text="COUPLE_INTEL" />
+              </div>
+            </div>
+
+            <div className="relative z-10 space-y-4 md:space-y-10 flex flex-col h-full overflow-hidden">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-4 border-b border-[#ff00ff]/30 pb-3 md:pb-6 flex-shrink-0">
+                <h2 className="text-2xl md:text-6xl font-black text-[#00ffff] tracking-tighter">
+                  <GlitchText text={t.theCouple.toUpperCase()} />
+                </h2>
+                <div className="text-right">
+                  <div className="text-[#ff00ff] font-bold text-base md:text-xl">
+                    <GlitchText text="NIKITA & VALERIIA" />
+                  </div>
+                </div>
+              </div> */}
+
+            <div className="relative w-full flex-1 min-h-0 overflow-hidden border border-[#ff00ff]/30 group">
+              <motion.img
+                src={photoOrig}
+                alt="The Couple"
+                className="w-full h-full object-cover"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              />
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+              <div className="absolute bottom-4 right-4 z-30">
+                <div className="text-[10px] font-mono text-[#ff00ff] bg-black/60 px-2 py-1 border border-[#ff00ff]/30 backdrop-blur-sm">
+                  <GlitchText text="SUBJECT_IDENTIFIED: NIKITA_&_VALERIIA" />
+                </div>
+              </div>
+            </div>
+          </div>
+          // </div>
         ),
       },
       {
@@ -705,7 +750,7 @@ export function App() {
       landing: landingSections,
       guestList: guestListSections,
     };
-  }, [t, language, handleGuestSelect]);
+  }, [t, language, handleGuestSelect, isHeartGlitching, isGlitching]);
 
   const pageVariants = {
     initial: (d: number) => ({

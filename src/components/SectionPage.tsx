@@ -165,13 +165,13 @@ function SectionRenderer({
 
   // Add a larger plateau around the focus point to handle sub-pixel scroll issues on mobile
   // This is especially important for sections with internal scrolling
-  const plateau = total > 1 ? step * 0.15 : 1;
+  const plateau = total > 1 ? step * 0.35 : 1;
   const focusStart = index === 0 ? -0.1 : visibleAt - plateau;
   const focusEnd = index === total - 1 ? 1.1 : visibleAt + plateau;
 
   // Sharper fade in/out to prevent overlapping
-  const fadeInStart = visibleAt - step * 0.4;
-  const fadeOutEnd = visibleAt + step * 0.4;
+  const fadeInStart = visibleAt - step * 0.5;
+  const fadeOutEnd = visibleAt + step * 0.5;
 
   const opacity = useTransform(
     scrollYProgress,
@@ -210,7 +210,7 @@ function SectionRenderer({
         pointerEvents,
         transformStyle: "preserve-3d",
       }}
-      className="absolute inset-0 z-10 flex flex-col items-center justify-start md:justify-center p-4 pt-20 pb-10 md:p-8 overflow-hidden"
+      className="absolute inset-0 z-10 flex flex-col items-center justify-start md:justify-center p-4 pt-20 pb-10 md:pt-24 md:pb-12 md:px-8 overflow-hidden"
     >
       <motion.div
         style={{
@@ -218,7 +218,7 @@ function SectionRenderer({
           z,
           transformStyle: "preserve-3d",
         }}
-        className="w-full h-full flex flex-col items-center justify-center"
+        className="w-full flex-1 flex flex-col items-center justify-center"
       >
         {section.content}
       </motion.div>
