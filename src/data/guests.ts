@@ -171,8 +171,8 @@ export const GUESTS: Guest[] = [
 
   {
     id: 518,
-    title: "Edgar",
-    titleRu: "Эдгар",
+    title: "Edgar Usupov",
+    titleRu: "Эдгар Юсупов",
     names: ["Edgar Usupov"],
     namesRu: ["Эдгар Юсупов"],
     children: [],
