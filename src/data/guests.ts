@@ -8,6 +8,9 @@ import Misnikovi from "../photos/Misnikovi.jpeg";
 import LerasParents from "../photos/lerasparents.jpeg";
 import Degri from "../photos/degri.jpeg";
 import SvetaAssaad from "../photos/SvetaAssaad.jpeg";
+import Goglovi from "../photos/goglovi.png";
+import Olesya from "../photos/olesya.jpeg";
+import Bogdan from "../photos/bogdan.jpeg";
 
 export const GUESTS: Guest[] = [
   {
@@ -22,9 +25,9 @@ export const GUESTS: Guest[] = [
     countryRu: "Швеция",
     photo: NikitasParents,
     details:
-      "Distinguished scientists with a history at CERN. Elite travelers who have explored more of the globe than most can imagine. The groom's primary support unit.",
+      "Distinguished scientists with a history at CERN. Tireless travelers who have explored more of the globe than most can imagine. The groom's primary support unit.",
     detailsRu:
-      "Выдающиеся ученые, работавшие в CERN. Элитные путешественники, посетившие больше стран, чем можно вообразить. Главная опора жениха.",
+      "Выдающиеся ученые, работавшие в CERN. Неутомимые путешественники, посетившие больше стран, чем можно вообразить. Главная опора жениха.",
   },
   {
     id: 248,
@@ -52,6 +55,7 @@ export const GUESTS: Guest[] = [
     languages: ["Russian"],
     country: "Russia",
     countryRu: "Россия",
+    photo: Bogdan,
     details:
       "Sister, nephew and godson of the bride. You will never leave their home hungry or sad!",
     detailsRu:
@@ -116,6 +120,7 @@ export const GUESTS: Guest[] = [
     languages: ["Russian", "English"],
     country: "Switzerland",
     countryRu: "Швейцария",
+    photo: Olesya,
     details:
       "A direct and honest friend living in the groom's childhood flat in Geneva. High integrity, no-nonsense attitude, but a core member of the social circle.",
     detailsRu:
@@ -134,9 +139,9 @@ export const GUESTS: Guest[] = [
     countryRu: "Россия",
     photo: Misnikovi,
     details:
-      "Olesya is the bride's schoolmate. A cheerful, close-knit family that has been happily expanded by wonderful Liliana.",
+      "Olesya is the bride's schoolmate. A cheerful, close-knit family, the most party-going parents one could imagine.",
     detailsRu:
-      "Олеся — одноклассница невесты. Дружная, весёлая семья, которая пополнилась замечательными Лилианой.",
+      "Олеся — одноклассница невесты. Дружная, весёлая семья, самые тусовые родители, которых только можно представить.",
   },
   {
     id: 487,
@@ -163,6 +168,7 @@ export const GUESTS: Guest[] = [
     languages: ["Russian", "English", "French"],
     country: "Switzerland",
     countryRu: "Швейцария",
+    photo: Goglovi,
     details:
       "Reliable friends of the groom, always ready to help. Parents of two awesome sons. Corporate employees by day, metal fans by night.",
     detailsRu:
@@ -212,8 +218,8 @@ export const GUESTS: Guest[] = [
     countryRu: "Индонезия",
     photo: RoboShmelPhoto,
     details:
-      "A kind soul from the Bali circle. Has transitioned to a sober, plant-based lifestyle. Currently preparing for a life of total isolation.",
+      "A kind soul from the Bali circle. Has transitioned to a sober. Modest mountain and surfing enthusiast, talented photographer.",
     detailsRu:
-      "Добрая душа из круга общения на Бали. Перешел на трезвый образ жизни и растительное питание. Готовится к жизни в полной изоляции.",
+      "Добрая душа из круга общения на Бали. Перешел на трезвый образ жизни. Скромный любитель гор и серфинга, талантливый фотограф.",
   },
 ];
