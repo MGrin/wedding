@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -9,7 +9,6 @@ import {
   Info,
   ChevronLeft,
   ChevronRight,
-  AlertTriangle,
 } from "lucide-react";
 import { TypewriterText } from "./TypewriterText";
 import { GlitchText } from "./GlitchText";
@@ -38,15 +37,6 @@ export function GuestDossier({
   const t = TRANSLATIONS[language];
   const isGlitching = useGlitchState();
   const { playClick } = useAudio();
-  const [imageStatus, setImageStatus] = useState<
-    "loading" | "loaded" | "error"
-  >("loading");
-
-  useEffect(() => {
-    if (guest) {
-      setImageStatus("loading");
-    }
-  }, [guest?.id]);
 
   if (!guest) return null;
 
@@ -74,14 +64,6 @@ export function GuestDossier({
   const details =
     language === "ru" ? guest.detailsRu || guest.details : guest.details;
   const languages = guest.languages.map((l) => (t.langNames as any)[l] || l);
-
-  const imageUrl =
-    guest.imageUrl ||
-    (guest.imagePrompt
-      ? `https://image.pollinations.ai/prompt/${encodeURIComponent(
-          guest.imagePrompt
-        )}?width=1024&height=1024&nologo=true&seed=${guest.id}`
-      : null);
 
   return (
     <AnimatePresence>
@@ -164,117 +146,6 @@ export function GuestDossier({
 
               {/* Top Section: Image and Title */}
               <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start relative z-10">
-                {/* Subject Image */}
-                {imageUrl && (
-                  <div className="relative w-48 h-48 flex-shrink-0 border border-[#00ffff]/30 overflow-hidden group bg-black">
-                    {/* Loading State: White Noise */}
-                    {imageStatus === "loading" && (
-                      <div className="absolute inset-0 z-10 overflow-hidden">
-                        <div className="absolute inset-[-100%] opacity-30 animate-noise bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-[#00ffff] font-mono text-[10px] animate-pulse tracking-widest">
-                            <GlitchText text="CONNECTING..." />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Error State: Not Available */}
-                    {imageStatus === "error" && (
-                      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#1a0000] border border-[#ff0000]/50">
-                        <div className="absolute inset-0 opacity-10 animate-noise bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
-                        <AlertTriangle
-                          className="text-[#ff0000] mb-2"
-                          size={32}
-                        />
-                        <div className="text-[#ff0000] font-mono text-xs font-bold tracking-tighter text-center px-4">
-                          <GlitchText text="DATA CORRUPTED" />
-                          <br />
-                          <span className="text-[10px] opacity-70">
-                            <GlitchText text="NOT AVAILABLE" />
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    <motion.img
-                      src={imageUrl}
-                      alt={title}
-                      onLoad={() => setImageStatus("loaded")}
-                      onError={() => setImageStatus("error")}
-                      animate={
-                        isGlitching && imageStatus === "loaded"
-                          ? {
-                              x: [0, -10, 10, -5, 5, 0],
-                              skewX: [0, 20, -20, 10, -10, 0],
-                              scale: [1, 1.1, 0.9, 1.05, 1],
-                              filter: [
-                                "grayscale(100%) contrast(150%) brightness(120%)",
-                                "grayscale(100%) contrast(200%) brightness(150%) hue-rotate(90deg)",
-                                "grayscale(100%) contrast(150%) brightness(120%) hue-rotate(-90deg)",
-                                "grayscale(100%) contrast(150%) brightness(120%)",
-                              ],
-                            }
-                          : {
-                              x: 0,
-                              skewX: 0,
-                              scale: 1,
-                              filter:
-                                "grayscale(100%) contrast(100%) brightness(100%) hue-rotate(0deg)",
-                            }
-                      }
-                      transition={{
-                        duration: 0.2,
-                        repeat: isGlitching ? Infinity : 0,
-                        repeatType: "mirror",
-                      }}
-                      className={`w-full h-full object-cover transition-all duration-700 ${
-                        imageStatus === "loaded"
-                          ? "opacity-80 grayscale hover:grayscale-0"
-                          : "opacity-0"
-                      }`}
-                    />
-
-                    {imageStatus === "loaded" && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-
-                        {/* Image Overlay UI */}
-                        <div className="absolute top-2 left-2 flex flex-col gap-1">
-                          <div className="bg-[#00ffff]/20 backdrop-blur-sm px-2 py-0.5 border border-[#00ffff]/40 text-[8px] font-mono text-[#00ffff]">
-                            <GlitchText text="REC ● 24.12.2025" />
-                          </div>
-                        </div>
-
-                        {/* AI Generated Stamp */}
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden">
-                          <div className="rotate-[-35deg] border-4 border-[#ff0000]/40 px-4 py-1 text-[#ff0000]/40 font-black text-xl tracking-widest uppercase select-none whitespace-nowrap">
-                            <GlitchText text="AI GENERATED" />
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                    {/* Scanning line for image */}
-                    <motion.div
-                      initial={{ top: "0%" }}
-                      animate={{ top: "100%" }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute left-0 right-0 h-[1px] bg-[#00ffff] shadow-[0_0_10px_#00ffff] z-10 opacity-50"
-                    />
-
-                    {/* Corner brackets */}
-                    <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00ffff]/50" />
-                    <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00ffff]/50" />
-                    <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00ffff]/50" />
-                    <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00ffff]/50" />
-                  </div>
-                )}
-
                 {/* Subject Title */}
                 <div className="flex-1 pt-2">
                   <h3 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-none">
