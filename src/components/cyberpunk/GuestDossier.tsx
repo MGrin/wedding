@@ -75,13 +75,7 @@ export function GuestDossier({
     language === "ru" ? guest.detailsRu || guest.details : guest.details;
   const languages = guest.languages.map((l) => (t.langNames as any)[l] || l);
 
-  const imageUrl =
-    guest.imageUrl ||
-    (guest.imagePrompt
-      ? `https://image.pollinations.ai/prompt/${encodeURIComponent(
-          guest.imagePrompt
-        )}?width=1024&height=1024&nologo=true&seed=${guest.id}`
-      : null);
+  const imageUrl = guest.photo;
 
   return (
     <AnimatePresence>
@@ -209,18 +203,17 @@ export function GuestDossier({
                               skewX: [0, 20, -20, 10, -10, 0],
                               scale: [1, 1.1, 0.9, 1.05, 1],
                               filter: [
-                                "grayscale(100%) contrast(150%) brightness(120%)",
-                                "grayscale(100%) contrast(200%) brightness(150%) hue-rotate(90deg)",
-                                "grayscale(100%) contrast(150%) brightness(120%) hue-rotate(-90deg)",
-                                "grayscale(100%) contrast(150%) brightness(120%)",
+                                "contrast(120%) brightness(110%)",
+                                "contrast(150%) brightness(130%) hue-rotate(20deg)",
+                                "contrast(120%) brightness(110%) hue-rotate(-20deg)",
+                                "contrast(120%) brightness(110%)",
                               ],
                             }
                           : {
                               x: 0,
                               skewX: 0,
                               scale: 1,
-                              filter:
-                                "grayscale(100%) contrast(100%) brightness(100%) hue-rotate(0deg)",
+                              filter: "contrast(100%) brightness(100%)",
                             }
                       }
                       transition={{
@@ -229,9 +222,7 @@ export function GuestDossier({
                         repeatType: "mirror",
                       }}
                       className={`w-full h-full object-cover transition-all duration-700 ${
-                        imageStatus === "loaded"
-                          ? "opacity-80 grayscale hover:grayscale-0"
-                          : "opacity-0"
+                        imageStatus === "loaded" ? "opacity-90" : "opacity-0"
                       }`}
                     />
 
@@ -243,13 +234,6 @@ export function GuestDossier({
                         <div className="absolute top-2 left-2 flex flex-col gap-1">
                           <div className="bg-[#00ffff]/20 backdrop-blur-sm px-2 py-0.5 border border-[#00ffff]/40 text-[8px] font-mono text-[#00ffff]">
                             <GlitchText text="REC ● 24.12.2025" />
-                          </div>
-                        </div>
-
-                        {/* AI Generated Stamp */}
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden">
-                          <div className="rotate-[-35deg] border-4 border-[#ff0000]/40 px-4 py-1 text-[#ff0000]/40 font-black text-xl tracking-widest uppercase select-none whitespace-nowrap">
-                            <GlitchText text="AI GENERATED" />
                           </div>
                         </div>
                       </>

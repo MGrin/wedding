@@ -28,6 +28,5 @@ export type Guest = {
   countryRu?: string;
   details: string;
   detailsRu?: string;
-  imageUrl?: string;
-  imagePrompt?: string;
+  photo?: string;
 };
