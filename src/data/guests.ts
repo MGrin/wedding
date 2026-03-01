@@ -11,6 +11,7 @@ import SvetaAssaad from "../photos/SvetaAssaad.jpeg";
 import Goglovi from "../photos/goglovi.png";
 import Olesya from "../photos/olesya.jpeg";
 import Bogdan from "../photos/bogdan.jpeg";
+import Lomovi from "../photos/lomovi.jpeg";
 
 export const GUESTS: Guest[] = [
   {
@@ -174,7 +175,23 @@ export const GUESTS: Guest[] = [
     detailsRu:
       "Надёжные друзья жениха, всегда готовые прийти на помощь. Родители двух крутых сыновей. Сотрудники крупных корпораций днём, фанаты метала ночью.",
   },
-
+  {
+    id: 509,
+    title: "Masha & Misha Krikunov",
+    titleRu: "Маша и Миша Крикуновы",
+    names: ["Maria Krikunova", "Mikhail Krikunov"],
+    namesRu: ["Мария Крикунова", "Михаил Крикунов"],
+    children: ["Polina Krikunova"],
+    childrenRu: ["Полина Крикунова"],
+    languages: ["Russian", "English"],
+    country: "Russia",
+    countryRu: "Россия",
+    photo: Lomovi,
+    details:
+      "In a birthday card for the bride's 18th birthday, Masha wished the bride to marry Nikita, and 15 years later, the bride was the first to tell Masha that she was moving to Bali to be with him.",
+    detailsRu:
+      "В поздравительной открытке к 18-летию невесты Маша пожелала невесте выйти замуж за Никиту, а через 15 лет невеста первой рассказала Маше, что переезжает к нему на Бали.",
+  },
   {
     id: 518,
     title: "Edgar Usupov",
