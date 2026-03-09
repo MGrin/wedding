@@ -8,7 +8,6 @@ import Misnikovi from "../photos/Misnikovi.jpeg";
 import LerasParents from "../photos/lerasparents.jpeg";
 import Degri from "../photos/degri.jpeg";
 import SvetaAssaad from "../photos/SvetaAssaad.jpeg";
-import Goglovi from "../photos/goglovi.png";
 import Olesya from "../photos/olesya.jpeg";
 import Bogdan from "../photos/bogdan.jpeg";
 import Lomovi from "../photos/lomovi.jpeg";
@@ -157,23 +156,6 @@ export const GUESTS: Guest[] = [
     photo: Solovievi,
     details: "Friends of the bride. Beautiful and welcoming hedonists.",
     detailsRu: "Друзья невесты. Красивые и гостеприимные гедонисты.",
-  },
-  {
-    id: 500,
-    title: "Anastasia & Pavel Goglov",
-    titleRu: "Анастасия и Павел Гогловы",
-    names: ["Anastasia Goglova", "Pavel Goglov"],
-    namesRu: ["Анастасия Гоглова", "Павел Гоглов"],
-    children: ["Timothe Goglov", "Andrei Goglov"],
-    childrenRu: ["Тимофей Гоглов", "Андрей Гоглов"],
-    languages: ["Russian", "English", "French"],
-    country: "Switzerland",
-    countryRu: "Швейцария",
-    photo: Goglovi,
-    details:
-      "Reliable friends of the groom, always ready to help. Parents of two awesome sons. Corporate employees by day, metal fans by night.",
-    detailsRu:
-      "Надёжные друзья жениха, всегда готовые прийти на помощь. Родители двух крутых сыновей. Сотрудники крупных корпораций днём, фанаты метала ночью.",
   },
   {
     id: 509,
