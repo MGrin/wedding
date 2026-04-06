@@ -24,9 +24,17 @@ jobs:
       - name: Add SPA redirect
         run: echo "/* /index.html 200" > dist/_redirects
 
+      - name: Create Cloudflare Pages project
+        uses: cloudflare/wrangler-action@v3
+        continue-on-error: true
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages project create wedding --production-branch=main
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=wedding
+          command: pages deploy dist --project-name=wedding --commit-dirty=true
